@@ -1,0 +1,95 @@
+{
+  "name": "metalsmith-sharp",
+  "version": "1.0.0",
+  "description": "Metalsmith plugin for manipulating images via the fast sharp library.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production babel src -d dist",
+    "test": "npm run lint && npm run coverage-tests",
+    "lint": "eslint src test",
+    "coverage-tests": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --check-coverage --lines 100 npm run unit-tests",
+    "unit-tests": "ava --verbose",
+    "unit-tests-watch": "ava --verbose -s --watch",
+    "preversion": "npm test",
+    "version": "npm run build && git add -f dist",
+    "postversion": "git push && git push --tags",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "repository": {
+    "url": "https://github.com/axe312ger/metalsmith-sharp.git",
+    "type": "git"
+  },
+  "keywords": [
+    "metalsmith",
+    "images",
+    "sharp"
+  ],
+  "author": "Benedikt Rötsch <info@benedikt-roetsch.de>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/axe312ger/metalsmith-sharp/issues"
+  },
+  "homepage": "https://github.com/axe312ger/metalsmith-sharp#readme",
+  "files": [
+    "dist",
+    "README.md",
+    "CONTRIBUTING.md"
+  ],
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "babel-cli": "^6.16.0",
+    "babel-core": "^6.17.0",
+    "babel-eslint": "^7.0.0",
+    "babel-plugin-istanbul": "^2.0.1",
+    "babel-preset-es2015-node4": "^2.1.0",
+    "babel-preset-es2015-node6": "^0.3.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "condition-circle": "^1.5.0",
+    "cross-env": "^3.1.2",
+    "cz-conventional-changelog": "^1.2.0",
+    "eslint": "^3.7.1",
+    "eslint-config-standard": "^6.2.0",
+    "eslint-plugin-babel": "^3.3.0",
+    "eslint-plugin-promise": "^3.0.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "metalsmith": "^2.2.0",
+    "node-resemble-js": "^0.1.1",
+    "nyc": "^8.3.1",
+    "semantic-release": "^4.3.5",
+    "sinon": "^1.17.6"
+  },
+  "dependencies": {
+    "minimatch": "^3.0.3",
+    "sharp": "^0.16.0"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit",
+    "source": [
+      "src/**/*.js"
+    ],
+    "files": [
+      "test/**/*.test.js"
+    ]
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.js"
+    ],
+    "require": [
+      "babel-register"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
+  "release": {
+    "verifyConditions": "condition-circle"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
