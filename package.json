@@ -53,13 +53,12 @@
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-promise": "^3.0.0",
     "eslint-plugin-standard": "^2.0.1",
-    "metalsmith": "^2.2.0",
     "node-resemble-js": "^0.1.1",
     "nyc": "^8.3.1",
-    "semantic-release": "^4.3.5",
-    "sinon": "^1.17.6"
+    "semantic-release": "^4.3.5"
   },
   "dependencies": {
+    "metalsmith": "^2.2.0",
     "minimatch": "^3.0.3",
     "sharp": "^0.16.0"
   },
