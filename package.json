@@ -1,6 +1,6 @@
 {
   "name": "metalsmith-sharp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Metalsmith plugin for manipulating images via the fast sharp library.",
   "main": "dist/index.js",
   "scripts": {
