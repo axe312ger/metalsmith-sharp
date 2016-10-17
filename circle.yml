@@ -1,10 +1,17 @@
-dependencies:
-  cache_directories:
-    - "node_modules-4"
-
 machine:
   node:
     version: "6"
+dependencies:
+  override:
+    - npm install
+    - mv node_modules node_modules-6
+    - mv node_modules-4 node_modules || true
+    - nvm use 4
+    - npm install
+    - mv node_modules node_modules-4
+    - mv node_modules-6 node_modules
+  cache_directories:
+    - "node_modules-4"
 test:
   override:
     - ls -alh node_modules || true
@@ -14,9 +21,8 @@ test:
     - bash <(curl -s https://codecov.io/bash)
     - npm run build
     - mv node_modules node_modules-6
-    - mv node_modules-4 node_modules || true
+    - mv node_modules-4 node_modules
     - nvm use 4
     - npm install
     - BABEL_ENV=node4 npm run build -- -d dist/node4
-    - mv node_modules node_modules-4
     - npm run semantic-release || true
