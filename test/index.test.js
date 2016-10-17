@@ -26,8 +26,9 @@ test.cb('test renaming', (t) => {
     }))
     .build((err, files) => {
       if (err) {
-        t.fail(err.toString())
-        return t.end()
+        t.fail()
+        t.end()
+        throw err
       }
       const fileList = Object.keys(files)
       const fileIndex = fileList.indexOf('renamed.jpg')
@@ -51,8 +52,9 @@ test.cb('test renaming with dir special case', (t) => {
     }))
     .build((err, files) => {
       if (err) {
-        t.fail(err.toString())
-        return t.end()
+        t.fail()
+        t.end()
+        throw err
       }
       const fileList = Object.keys(files)
       const fileIndex = fileList.indexOf(join(resultDir, 'rename-full-path.jpg'))
@@ -72,8 +74,9 @@ test.cb('test moving of files', (t) => {
     }))
     .build((err, files) => {
       if (err) {
-        t.fail(err.toString())
-        return t.end()
+        t.fail()
+        t.end()
+        throw err
       }
       const fileList = Object.keys(files)
       t.is(fileList.length, 1)
@@ -97,8 +100,9 @@ test.cb('test method without arguments', (t) => {
     }))
     .build(async (err, files) => {
       if (err) {
-        t.fail(err.toString())
-        return t.end()
+        t.fail()
+        t.end()
+        throw err
       }
       const fileList = Object.keys(files)
       const fileIndex = fileList.indexOf('negated.jpg')
@@ -140,8 +144,9 @@ test.cb('test method with arguments', (t) => {
     }))
     .build((err, files) => {
       if (err) {
-        t.fail(err.toString())
-        return t.end()
+        t.fail()
+        t.end()
+        throw err
       }
       const fileList = Object.keys(files)
       const fileIndex = fileList.indexOf('extracted.jpg')
@@ -179,8 +184,9 @@ test.cb('test skipping of matching files', (t) => {
     }))
     .build((err, files) => {
       if (err) {
-        t.fail(err.toString())
-        return t.end()
+        t.fail()
+        t.end()
+        throw err
       }
       const fileList = Object.keys(files)
       t.not(files[fileList[0]].contents.length, files[fileList[1]].contents.length)
@@ -198,8 +204,9 @@ test.cb('test unknown placeholders', (t) => {
     }))
     .build((err, files) => {
       if (err) {
-        t.fail(err.toString())
-        return t.end()
+        t.fail()
+        t.end()
+        throw err
       }
       const fileList = Object.keys(files)
       const fileIndex = fileList.indexOf('{unknown-placeholder}.jpg')
