@@ -14,13 +14,11 @@ dependencies:
     - "node_modules-4"
 test:
   override:
-    - ls -alh node_modules || true
-    - ls -alh node_modules-4 || true
     - npm test
   post:
     - bash <(curl -s https://codecov.io/bash)
     - npm run build
-    - mv node_modules node_modules-6
+    - rm -rdf node_modules
     - mv node_modules-4 node_modules
     - nvm use 4
     - npm install
