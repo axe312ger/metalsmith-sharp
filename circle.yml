@@ -7,8 +7,8 @@ machine:
     version: "6"
 test:
   override:
-    - ls -alh node_modules
-    - ls -alh node_modules-4
+    - ls -alh node_modules || true
+    - ls -alh node_modules-4 || true
     - npm test
   post:
     - bash <(curl -s https://codecov.io/bash)
