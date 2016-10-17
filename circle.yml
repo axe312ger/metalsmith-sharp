@@ -1,14 +1,22 @@
+dependencies:
+  cache_directories:
+    - "node_modules-4"
+
 machine:
   node:
     version: "6"
 test:
   override:
+    - ls -alh node_modules
+    - ls -alh node_modules-4
     - npm test
   post:
     - bash <(curl -s https://codecov.io/bash)
-    - if [ $CIRCLE_BRANCH = 'master' ]; then npm run build; else true; fi
-    - if [ $CIRCLE_BRANCH = 'master' ]; then rm -rd node_modules; else true; fi
-    - if [ $CIRCLE_BRANCH = 'master' ]; then nvm use 4; else true; fi
-    - if [ $CIRCLE_BRANCH = 'master' ]; then npm install; else true; fi
-    - if [ $CIRCLE_BRANCH = 'master' ]; then BABEL_ENV=node4 npm run build -- -d dist/node4; else true; fi
+    - npm run build
+    - mv node_modules node_modules-6
+    - mv node_modules-4 node_modules || true
+    - nvm use 4
+    - npm install
+    - BABEL_ENV=node4 npm run build -- -d dist/node4
+    - mv node_modules node_modules-4
     - npm run semantic-release || true
