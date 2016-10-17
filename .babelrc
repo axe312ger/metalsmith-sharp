@@ -1,13 +1,17 @@
 {
-  "presets": ["es2015-node6", "stage-0"],
+  "presets": ["stage-0"],
   "env": {
     "test": {
       "plugins": [
         "istanbul"
-      ]
+      ],
+      "presets": ["es2015-node6"]
     },
     "node4": {
       "presets": ["es2015-node4"],
+    },
+    "node6": {
+      "presets": ["es2015-node6"],
     }
   }
 }
