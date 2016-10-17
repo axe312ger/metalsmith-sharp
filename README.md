@@ -17,7 +17,7 @@ npm install --save metalsmith-sharp
 
 ## Usage
 
-Just use it as regular Metalsmith plugin.
+Just use it as regular Metalsmith plugin. If your environment does not support the import syntax, see further below.
 
 ```js
 import Metalsmith from 'metalsmith'
@@ -39,6 +39,19 @@ Metalsmith('/path/to/project')
   }))
   .build()
 ```
+
+### Node 6
+```js
+const sharp = require('metalsmith-sharp').default
+```
+
+### Node 4
+A version for the LTS version of node is also supplied. You can require it like this:
+
+```js
+const sharp = require('metalsmith-sharp/dist/node-4').default
+```
+
 
 For further examples can be found in the test directory.
 

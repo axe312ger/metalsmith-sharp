@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "Metalsmith plugin for manipulating images via the fast sharp library.",
   "main": "dist/index.js",
+  "module": "dist/es-modules/index.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production babel src -d dist",
     "test": "npm run lint && npm run coverage-tests",
