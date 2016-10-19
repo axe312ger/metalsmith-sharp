@@ -103,7 +103,7 @@ Renaming pattern for the resulting file. By default, the input file will be over
 Supported placeholders:
 * `{dir}`: Directory of file followed by slash
 * `{base}`: Full filename with extension
-* `{name}`: Filename without extenstion
+* `{name}`: Filename without extension
 * `{ext}`: File extension with leading dot
 
 ```js
