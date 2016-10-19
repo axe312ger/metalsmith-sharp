@@ -6,6 +6,8 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 [![Build Status](https://img.shields.io/circleci/project/axe312ger/metalsmith-sharp/prototype.svg?maxAge=2592000)](https://circleci.com/gh/axe312ger/metalsmith-sharp)
 [![CodeCov Badge](https://img.shields.io/codecov/c/github/axe312ger/metalsmith-sharp.svg?maxAge=2592000)](https://codecov.io/gh/axe312ger/metalsmith-sharp)
+![David](https://img.shields.io/david/axe312ger/metalsmith-sharp.svg)
+![David](https://img.shields.io/david/dev/axe312ger/metalsmith-sharp.svg)
 [![semantic-release](https://img.shields.io/badge/%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
@@ -101,7 +103,7 @@ Renaming pattern for the resulting file. By default, the input file will be over
 Supported placeholders:
 * `{dir}`: Directory of file followed by slash
 * `{base}`: Full filename with extension
-* `{name}`: Filename without extenstion
+* `{name}`: Filename without extension
 * `{ext}`: File extension with leading dot
 
 ```js
