@@ -33,13 +33,12 @@ export default function (options) {
   }
 
   return function (files, metalsmith, done) {
-    const promises = Object.keys(files).map((filename) => {
-      if (minimatch(filename, options.src)) {
-        const file = files[filename]
-
+    Object.keys(files).reduce((sequence, filename) => {
+      const file = files[filename]
+      const processImage = (image) => {
         const replacements = getReplacements(filename)
         const dist = replacePlaceholders(options.namingPattern, replacements)
-        const sharp = Sharp(file.contents)
+        const sharp = Sharp(image.contents)
 
         options.methods.forEach((method) => {
           const args = [].concat(method.args)
@@ -53,8 +52,8 @@ export default function (options) {
             return Promise.reject(err)
           })
           .then((buffer, info) => {
-            file.contents = buffer
-            files[dist] = file
+            image.contents = buffer
+            files[dist] = image
 
             if (filename !== dist && options.moveFile) {
               delete files[filename]
@@ -62,10 +61,13 @@ export default function (options) {
           })
       }
 
-      return Promise.resolve()
-    })
+      if (minimatch(filename, options.src)) {
+        return sequence.then(() => processImage(file))
+      }
 
-    Promise.all(promises).then(() => {
+      return sequence
+    }, Promise.resolve())
+    .then(() => {
       done()
     })
     .catch((err) => {
