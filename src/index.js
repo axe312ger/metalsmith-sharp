@@ -1,4 +1,5 @@
 import { parse } from 'path'
+import { cloneDeep } from 'lodash'
 import minimatch from 'minimatch'
 import Sharp from 'sharp'
 
@@ -19,7 +20,19 @@ function getReplacements (path) {
   return parsedPath
 }
 
-export default function (options) {
+function runSharp (image, options) {
+  const sharp = Sharp(image.contents)
+
+  options.methods.forEach((method) => {
+    const args = [].concat(method.args)
+    sharp[method.name](...args)
+  })
+
+  return sharp
+  .toBuffer()
+}
+
+export default function (userOptions) {
   const defaultOptions = {
     src: '**/*.jpg',
     namingPattern: '{dir}{base}',
@@ -27,45 +40,46 @@ export default function (options) {
     moveFile: false
   }
 
-  options = {
-    ...defaultOptions,
-    ...options
-  }
+  const optionsList = [].concat(userOptions)
 
+  // Return metalsmith plugin.
   return function (files, metalsmith, done) {
-    Object.keys(files).reduce((sequence, filename) => {
-      const file = files[filename]
-      const processImage = (image) => {
+    Object.keys(files).reduce((fileSequence, filename) => {
+      return fileSequence.then(() => {
+        const file = files[filename]
         const replacements = getReplacements(filename)
-        const dist = replacePlaceholders(options.namingPattern, replacements)
-        const sharp = Sharp(image.contents)
 
-        options.methods.forEach((method) => {
-          const args = [].concat(method.args)
-          sharp[method.name](...args)
-        })
+        // Iterate over all option sets.
+        return optionsList.reduce((stepSequence, options) => {
+          const stepOptions = {
+            ...defaultOptions,
+            ...options
+          }
 
-        return sharp
-          .toBuffer()
+          if (!minimatch(filename, stepOptions.src)) {
+            return stepSequence
+          }
+
+          const image = cloneDeep(file)
+
+          // Run sharp and save new file.
+          return stepSequence
+          .then(() => runSharp(image, stepOptions))
           .catch((err) => {
             err.message = `Could not process file "${filename}":\n${err.message}`
             return Promise.reject(err)
           })
           .then((buffer, info) => {
+            const dist = replacePlaceholders(stepOptions.namingPattern, replacements)
             image.contents = buffer
             files[dist] = image
 
-            if (filename !== dist && options.moveFile) {
+            if (filename !== dist && stepOptions.moveFile) {
               delete files[filename]
             }
           })
-      }
-
-      if (minimatch(filename, options.src)) {
-        return sequence.then(() => processImage(file))
-      }
-
-      return sequence
+        }, Promise.resolve())
+      })
     }, Promise.resolve())
     .then(() => {
       done()

@@ -168,6 +168,71 @@ test.cb('test method with arguments', (t) => {
     })
 })
 
+test.cb('test with set of options', (t) => {
+  const { metalsmith } = t.context
+
+  metalsmith
+    .use(sharp([
+      {
+        namingPattern: '{dir}{name}-version-1{ext}',
+        methods: [
+          {
+            name: 'normalize'
+          },
+          {
+            name: 'flop'
+          },
+          {
+            name: 'trim',
+            args: 15
+          }
+        ]
+      },
+      {
+        namingPattern: '{dir}{name}-version-2{ext}',
+        methods: [
+          {
+            name: 'normalize'
+          },
+          {
+            name: 'trim',
+            args: 30
+          }
+        ]
+      }
+    ]))
+    .build((err, files) => {
+      if (err) {
+        t.fail()
+        t.end()
+        throw err
+      }
+      const fileList = Object.keys(files)
+      t.is(fileList.length, 3)
+      t.true(fileList.indexOf('example-version-1.jpg') !== -1)
+      t.true(fileList.indexOf('example-version-2.jpg') !== -1)
+
+      resemble(join(FIXTURES_DIR, 'expected', 'example-version-1.jpg'))
+        .compareTo(join(FIXTURES_DIR, 'results', 'example-version-1.jpg'))
+        .onComplete((data) => {
+          if (data.misMatchPercentage < 0.1) {
+            return resemble(join(FIXTURES_DIR, 'expected', 'example-version-2.jpg'))
+              .compareTo(join(FIXTURES_DIR, 'results', 'example-version-2.jpg'))
+              .onComplete((data) => {
+                if (data.misMatchPercentage < 0.1) {
+                  t.pass()
+                  return t.end()
+                }
+                t.fail('resulting image version 2 differs from expected one')
+                t.end()
+              })
+          }
+          t.fail('resulting image version 2 differs from expected one')
+          t.end()
+        })
+    })
+})
+
 test.cb('test skipping of matching files', (t) => {
   const { metalsmith } = t.context
 
