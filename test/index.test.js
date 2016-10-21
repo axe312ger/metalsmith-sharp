@@ -134,8 +134,8 @@ test.cb('test method with arguments', (t) => {
         {
           name: 'extract',
           args: {
-            left: 0,
-            top: 500,
+            left: 300,
+            top: 100,
             width: 400,
             height: 200
           }
