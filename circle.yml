@@ -17,7 +17,7 @@ test:
     - npm test
   post:
     - bash <(curl -s https://codecov.io/bash)
-    - npm run build
+    - BABEL_ENV=node6 npm run build
     - BABEL_ENV=es-modules npm run build -- -d dist/es-modules
     - rm -rdf node_modules
     - mv node_modules-4 node_modules
