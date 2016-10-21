@@ -111,7 +111,7 @@ test.cb('test method without arguments', (t) => {
       resemble(expected)
         .compareTo(result)
         .onComplete((data) => {
-          if (data.misMatchPercentage < 0.1) {
+          if (data.misMatchPercentage <= 1) {
             t.pass()
             return t.end()
           }
@@ -155,7 +155,7 @@ test.cb('test method with arguments', (t) => {
       resemble(expected)
         .compareTo(result)
         .onComplete((data) => {
-          if (data.misMatchPercentage < 0.1) {
+          if (data.misMatchPercentage <= 1) {
             t.pass()
             return t.end()
           }
@@ -206,15 +206,15 @@ test.cb('test with set of options', (t) => {
       resemble(join(EXPECTED_DIR, 'example-version-1.jpg'))
         .compareTo(join(RESULT_DIR, 'example-version-1.jpg'))
         .onComplete((data) => {
-          if (data.misMatchPercentage < 0.1) {
+          if (data.misMatchPercentage <= 1) {
             return resemble(join(EXPECTED_DIR, 'example-version-2.jpg'))
               .compareTo(join(RESULT_DIR, 'example-version-2.jpg'))
               .onComplete((data) => {
-                if (data.misMatchPercentage < 0.1) {
+                if (data.misMatchPercentage <= 1) {
                   t.pass()
                   return t.end()
                 }
-                t.fail('resulting image version 2differs from expected one by ' + data.misMatchPercentage)
+                t.fail('resulting image version 2 differs from expected one by ' + data.misMatchPercentage)
                 t.end()
               })
           }
