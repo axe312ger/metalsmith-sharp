@@ -58,6 +58,7 @@
     "semantic-release": "^4.3.5"
   },
   "dependencies": {
+    "lodash": "^4.16.4",
     "metalsmith": "^2.2.0",
     "minimatch": "^3.0.3",
     "sharp": "^0.16.1"
