@@ -44,14 +44,14 @@ Metalsmith('/path/to/project')
 
 ### Node 6
 ```js
-const sharp = require('metalsmith-sharp').default
+const sharp = require('metalsmith-sharp')
 ```
 
 ### Node 4
 A version for the LTS version of node is also supplied. You can require it like this:
 
 ```js
-const sharp = require('metalsmith-sharp/dist/node-4').default
+const sharp = require('metalsmith-sharp/dist/node-4')
 ```
 
 
