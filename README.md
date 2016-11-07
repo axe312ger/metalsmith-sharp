@@ -51,7 +51,7 @@ const sharp = require('metalsmith-sharp')
 A version for the LTS version of node is also supplied. You can require it like this:
 
 ```js
-const sharp = require('metalsmith-sharp/dist/node-4')
+const sharp = require('metalsmith-sharp/dist/node4')
 ```
 
 
