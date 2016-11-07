@@ -1,18 +1,27 @@
 {
   "presets": ["stage-0"],
-  "plugins": ["add-module-exports"],
+  "plugins": [
+    "add-module-exports"
+  ],
   "env": {
     "test": {
+      "presets": ["es2015-node6"],
       "plugins": [
-        "istanbul"
-      ],
-      "presets": ["es2015-node6"]
+        "istanbul",
+        "add-module-exports"
+      ]
     },
     "node4": {
       "presets": ["es2015-node4"],
+      "plugins": [
+        "add-module-exports"
+      ],
     },
     "node6": {
       "presets": ["es2015-node6"],
+      "plugins": [
+        "add-module-exports"
+      ],
     }
   }
 }
