@@ -114,7 +114,7 @@ Supported placeholders:
 
 ### moveFile
 
-If the resulting file has a different name, the default behavior is to create a new file. Set this option to false to delete the input file.
+If the resulting file has a different name, the default behavior is to create a new file and keep the input file. Set this option to true to delete the input file.
 
 ```js
 {
