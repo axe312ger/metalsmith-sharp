@@ -59,6 +59,7 @@
     "semantic-release": "^4.3.5"
   },
   "dependencies": {
+    "debug": "^2.3.0",
     "lodash": "^4.16.6",
     "metalsmith": "^2.3.0",
     "minimatch": "^3.0.3",

@@ -1,7 +1,10 @@
 import { parse } from 'path'
 import { cloneDeep } from 'lodash'
 import minimatch from 'minimatch'
+import Debug from 'debug'
 import Sharp from 'sharp'
+
+const debug = Debug('metalsmith-sharp')
 
 function replacePlaceholders (text, placeholders) {
   return text.replace(/\{([^}]+)\}/g, (match, pattern) => {
@@ -59,6 +62,8 @@ export default function (userOptions) {
           if (!minimatch(filename, stepOptions.src)) {
             return stepSequence
           }
+
+          debug(`processing ${filename}`)
 
           const image = cloneDeep(file)
 
