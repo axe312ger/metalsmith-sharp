@@ -41,6 +41,39 @@ Metalsmith('/path/to/project')
   .build()
 ```
 
+You can also do multiple image manipulations in one call:
+
+```js
+import Metalsmith from 'metalsmith'
+import sharp from 'metalsmith-sharp'
+
+Metalsmith('/path/to/project')
+  .use(sharp([
+    {
+      namingPattern: '{dir}{name}-version-1{ext}',
+      methods: [
+        { name: 'normalize' },
+        { name: 'flop' },
+        {
+          name: 'trim',
+          args: 15
+        }
+      ]
+    },
+    {
+      namingPattern: '{dir}{name}-version-2{ext}',
+      methods: [
+        { name: 'normalize' },
+        {
+          name: 'trim',
+          args: 30
+        }
+      ]
+    }
+  ]))
+  .build()
+```
+
 ### Node 6
 ```js
 const sharp = require('metalsmith-sharp')
