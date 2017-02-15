@@ -1,4 +1,4 @@
-# Contributing to managr
+# Contributing to metalsmith-sharp
 > :+1::tada: First off, thanks for taking the time to contribute! :tada::+1:
 
 *Atom Dev Team* - [CONTRIBUTING.md](https://github.com/atom/atom/blob/master/CONTRIBUTING.md)
