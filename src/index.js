@@ -1,6 +1,6 @@
 import { parse } from 'path'
 import { cloneDeep } from 'lodash'
-import minimatch from 'minimatch'
+import multimatch from 'multimatch'
 import Debug from 'debug'
 import Sharp from 'sharp'
 
@@ -59,7 +59,7 @@ export default function (userOptions) {
             ...options
           }
 
-          if (!minimatch(filename, stepOptions.src)) {
+          if (multimatch(filename, stepOptions.src).length === 0) {
             return stepSequence
           }
 

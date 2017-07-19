@@ -1,5 +1,5 @@
 {
-  "name": "metalsmith-sharp",
+  "name": "@emanueleperuffo/metalsmith-sharp",
   "version": "1.0.1",
   "description": "Metalsmith plugin for manipulating images via the fast sharp library.",
   "main": "dist/index.js",
@@ -63,7 +63,7 @@
     "debug": "^2.5.2",
     "lodash": "^4.17.4",
     "metalsmith": "^2.3.0",
-    "minimatch": "^3.0.3",
+    "multimatch": "^2.1.0",
     "sharp": "^0.17.2"
   },
   "ava": {
