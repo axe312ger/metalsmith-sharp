@@ -60,7 +60,7 @@
     "semantic-release": "^7.0.1"
   },
   "dependencies": {
-    "debug": "^2.5.2",
+    "debug": "^3.1.0",
     "lodash": "^4.17.4",
     "metalsmith": "^2.3.0",
     "minimatch": "^3.0.3",
