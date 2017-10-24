@@ -37,7 +37,7 @@
     "CONTRIBUTING.md"
   ],
   "devDependencies": {
-    "ava": "^0.19.0",
+    "ava": "^0.23.0",
     "babel-cli": "^6.24.0",
     "babel-core": "^6.24.0",
     "babel-eslint": "^7.1.0",
