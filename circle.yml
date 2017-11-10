@@ -1,25 +1,10 @@
 machine:
   node:
     version: "8"
-dependencies:
-  override:
-    - npm install
-    - mv node_modules node_modules-6
-    - mv node_modules-4 node_modules || true
-    - nvm use 4
-    - npm install
-    - mv node_modules node_modules-4
-    - mv node_modules-6 node_modules
-  cache_directories:
-    - "node_modules-4"
 test:
   post:
     - bash <(curl -s https://codecov.io/bash)
     - BABEL_ENV=node6 npm run build
     - BABEL_ENV=es-modules npm run build -- -d dist/es-modules
-    - rm -rdf node_modules
-    - mv node_modules-4 node_modules
-    - nvm use 4
-    - npm install
     - BABEL_ENV=node4 npm run build -- -d dist/node4
     - npm run semantic-release || true
