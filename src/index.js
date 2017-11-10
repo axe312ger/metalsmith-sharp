@@ -32,7 +32,7 @@ function runSharp (image, options) {
   })
 
   return sharp
-  .toBuffer()
+    .toBuffer()
 }
 
 export default function (userOptions) {
@@ -69,28 +69,28 @@ export default function (userOptions) {
 
           // Run sharp and save new file.
           return stepSequence
-          .then(() => runSharp(image, stepOptions))
-          .catch((err) => {
-            err.message = `Could not process file "${filename}":\n${err.message}`
-            return Promise.reject(err)
-          })
-          .then((buffer, info) => {
-            const dist = replacePlaceholders(stepOptions.namingPattern, replacements)
-            image.contents = buffer
-            files[dist] = image
+            .then(() => runSharp(image, stepOptions))
+            .catch((err) => {
+              err.message = `Could not process file "${filename}":\n${err.message}`
+              return Promise.reject(err)
+            })
+            .then((buffer, info) => {
+              const dist = replacePlaceholders(stepOptions.namingPattern, replacements)
+              image.contents = buffer
+              files[dist] = image
 
-            if (filename !== dist && stepOptions.moveFile) {
-              delete files[filename]
-            }
-          })
+              if (filename !== dist && stepOptions.moveFile) {
+                delete files[filename]
+              }
+            })
         }, Promise.resolve())
       })
     }, Promise.resolve())
-    .then(() => {
-      done()
-    })
-    .catch((err) => {
-      done(err)
-    })
+      .then(() => {
+        done()
+      })
+      .catch((err) => {
+        done(err)
+      })
   }
 }
