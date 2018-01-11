@@ -66,7 +66,7 @@
     "lodash": "^4.17.4",
     "metalsmith": "^2.3.0",
     "minimatch": "^3.0.3",
-    "sharp": "^0.18.4"
+    "sharp": "^0.19.0"
   },
   "ava": {
     "require": [
