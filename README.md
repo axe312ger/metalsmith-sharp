@@ -74,6 +74,33 @@ Metalsmith('/path/to/project')
   .build()
 ```
 
+Another way of working with this plugin is to add options on a per file basis.  
+You need to write a method which adds the data to the files before running `sharp()`. This method is working like a Metalsmith plugin but can be very simple. Just attach one or multiple sets of options directly to the file using the `sharp` property. Be aware that the `src` properties of those options will be ignored:
+
+```js
+import Metalsmith from 'metalsmith'
+import sharp from 'metalsmith-sharp'
+
+Metalsmith('/path/to/project')
+  .use((files) => {
+    files['example.jpg'].sharp = {
+      methods: [
+        {
+          name: 'resize',
+          args: [ 200, 200 ]
+        },
+        { name: 'max' },
+        {
+          name: 'toFormat',
+          args: [ 'jpeg' ]
+        }
+      ]
+    }
+  })
+  .use(sharp())
+  .build()
+```
+
 ### Node 6
 ```js
 const sharp = require('metalsmith-sharp')

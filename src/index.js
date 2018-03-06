@@ -52,8 +52,19 @@ export default function (userOptions) {
         const file = files[filename]
         const replacements = getReplacements(filename)
 
+        // src pattern will be reset when passing options on per file basis
+        if (file.sharp) {
+          file.sharp = [].concat(file.sharp)
+          file.sharp.forEach(function (option) {
+            option.src = filename
+          })
+        }
+
+        // combine option sets passed on module call with options given on a per file basis
+        const combinedOptionsList = file.sharp ? optionsList.concat(file.sharp) : optionsList
+
         // Iterate over all option sets.
-        return optionsList.reduce((stepSequence, options) => {
+        return combinedOptionsList.reduce((stepSequence, options) => {
           const stepOptions = {
             ...defaultOptions,
             ...options

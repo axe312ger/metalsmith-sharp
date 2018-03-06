@@ -121,6 +121,43 @@ test.cb('test method without arguments', (t) => {
     })
 })
 
+test.cb('test method without arguments - options attached to file', (t) => {
+  const { metalsmith } = t.context
+
+  metalsmith
+    .use((files) => {
+      files['example.jpg'].sharp = {
+        namingPattern: '{dir}negated-per-file{ext}',
+        methods: [ { name: 'negate' } ]
+      }
+    })
+    .use(sharp())
+    .build(async (err, files) => {
+      if (err) {
+        t.fail()
+        t.end()
+        throw err
+      }
+      const fileList = Object.keys(files)
+      const fileIndex = fileList.indexOf('negated-per-file.jpg')
+      t.true(fileIndex !== -1)
+
+      const expected = join(EXPECTED_DIR, 'negated.jpg')
+      const result = join(RESULT_DIR, 'negated-per-file.jpg')
+
+      resemble(expected)
+        .compareTo(result)
+        .onComplete((data) => {
+          if (data.misMatchPercentage <= 1) {
+            t.pass()
+            return t.end()
+          }
+          t.fail('resulting image differs from expected one by ' + data.misMatchPercentage)
+          t.end()
+        })
+    })
+})
+
 test.cb('test method with arguments', (t) => {
   const { metalsmith } = t.context
 
@@ -209,6 +246,68 @@ test.cb('test with set of options', (t) => {
           if (data.misMatchPercentage <= 1) {
             return resemble(join(EXPECTED_DIR, 'example-version-2.jpg'))
               .compareTo(join(RESULT_DIR, 'example-version-2.jpg'))
+              .onComplete((data) => {
+                if (data.misMatchPercentage <= 1) {
+                  t.pass()
+                  return t.end()
+                }
+                t.fail('resulting image version 2 differs from expected one by ' + data.misMatchPercentage)
+                t.end()
+              })
+          }
+          t.fail('resulting image version 1 differs from expected one by ' + data.misMatchPercentage)
+          t.end()
+        })
+    })
+})
+
+test.cb('test with set of options - options attached to file', (t) => {
+  const { metalsmith } = t.context
+
+  metalsmith
+    .use((files) => {
+      files['example.jpg'].sharp = [
+        {
+          namingPattern: '{dir}{name}-per-file-version-1{ext}',
+          methods: [
+            { name: 'normalize' },
+            { name: 'flop' },
+            {
+              name: 'trim',
+              args: 15
+            }
+          ]
+        },
+        {
+          namingPattern: '{dir}{name}-per-file-version-2{ext}',
+          methods: [
+            { name: 'normalize' },
+            {
+              name: 'trim',
+              args: 30
+            }
+          ]
+        }
+      ]
+    })
+    .use(sharp())
+    .build((err, files) => {
+      if (err) {
+        t.fail()
+        t.end()
+        throw err
+      }
+      const fileList = Object.keys(files)
+      t.is(fileList.length, 3)
+      t.true(fileList.indexOf('example-per-file-version-1.jpg') !== -1)
+      t.true(fileList.indexOf('example-per-file-version-2.jpg') !== -1)
+
+      resemble(join(EXPECTED_DIR, 'example-version-1.jpg'))
+        .compareTo(join(RESULT_DIR, 'example-per-file-version-1.jpg'))
+        .onComplete((data) => {
+          if (data.misMatchPercentage <= 1) {
+            return resemble(join(EXPECTED_DIR, 'example-version-2.jpg'))
+              .compareTo(join(RESULT_DIR, 'example-per-file-version-2.jpg'))
               .onComplete((data) => {
                 if (data.misMatchPercentage <= 1) {
                   t.pass()
