@@ -1,5 +1,5 @@
 {
-  "name": "@emanueleperuffo/metalsmith-sharp",
+  "name": "metalsmith-sharp",
   "version": "1.0.1",
   "description": "Metalsmith plugin for manipulating images via the fast sharp library.",
   "main": "dist/index.js",
@@ -37,34 +37,36 @@
     "CONTRIBUTING.md"
   ],
   "devDependencies": {
-    "ava": "^0.19.0",
+    "ava": "^0.25.0",
     "babel-cli": "^6.24.0",
     "babel-core": "^6.24.0",
-    "babel-eslint": "^7.1.0",
+    "babel-eslint": "^8.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-istanbul": "^4.1.1",
     "babel-preset-es2015-node4": "^2.1.0",
     "babel-preset-es2015-node6": "^0.4.0",
     "babel-preset-stage-0": "^6.22.0",
     "babel-register": "^6.24.0",
-    "condition-circle": "^1.5.0",
-    "cross-env": "^4.0.0",
+    "condition-circle": "^2.0.0",
+    "cross-env": "^5.1.1",
     "cz-conventional-changelog": "^2.0.0",
-    "eslint": "^3.19.0",
-    "eslint-config-standard": "^7.1.0",
+    "eslint": "^4.10.0",
+    "eslint-config-standard": "^10.2.1",
     "eslint-plugin-babel": "^4.1.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-promise": "^3.3.0",
     "eslint-plugin-standard": "^3.0.1",
     "node-resemble-js": "^0.2.0",
-    "nyc": "10.3.0",
-    "semantic-release": "^6.3.2"
+    "nyc": "^11.3.0",
+    "semantic-release": "^12.2.2"
   },
   "dependencies": {
-    "debug": "^2.5.2",
+    "debug": "^3.1.0",
     "lodash": "^4.17.4",
     "metalsmith": "^2.3.0",
     "multimatch": "^2.1.0",
-    "sharp": "^0.17.2"
+    "sharp": "^0.20.0"
   },
   "ava": {
     "require": [

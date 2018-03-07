@@ -2,6 +2,11 @@
 dist
 test/fixtures/results
 
+# Avoid lock files in libraries
+package-lock.json
+yarn.lock
+
+
 # Created by https://www.gitignore.io/api/osx,linux,windows,node
 
 ### OSX ###

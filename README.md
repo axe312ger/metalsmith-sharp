@@ -120,7 +120,7 @@ Check the [sharp API documentation](http://sharp.dimens.io/en/stable/api/) for a
 
 ### src
 
-Glob for matching source files. All [minimatch features]() are supported.
+Glob for matching source files. All [minimatch features](https://github.com/isaacs/minimatch#features) are supported.
 
 ```js
 {

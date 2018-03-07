@@ -275,7 +275,7 @@ test.cb('test catch of invalid image data error', (t) => {
 
   metalsmith
     .use((files) => {
-      files['example.jpg'].contents = new Buffer('')
+      files['example.jpg'].contents = Buffer.from('')
     })
     .use(sharp())
     .build((err, files) => {

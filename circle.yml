@@ -1,40 +1,10 @@
 machine:
-  environment:
-    YARN_VERSION: 0.18.1
-    PATH: "${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
   node:
-    version: "6"
-dependencies:
-  pre:
-    - |
-      if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}" ]]; then
-        echo "Download and install Yarn."
-        curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
-      else
-        echo "The correct version of Yarn is already installed."
-      fi
-  override:
-    - yarn
-    - mv node_modules node_modules-6
-    - mv node_modules-4 node_modules || true
-    - nvm use 4
-    - yarn
-    - mv node_modules node_modules-4
-    - mv node_modules-6 node_modules
-  cache_directories:
-    - "node_modules-4"
-    - ~/.yarn
-    - ~/.cache/yarn
+    version: "8"
 test:
-  override:
-    - yarn test
   post:
     - bash <(curl -s https://codecov.io/bash)
-    - BABEL_ENV=node6 yarn build
-    - BABEL_ENV=es-modules yarn build -- -d dist/es-modules
-    - rm -rdf node_modules
-    - mv node_modules-4 node_modules
-    - nvm use 4
-    - yarn
-    - BABEL_ENV=node4 yarn build -- -d dist/node4
-    - yarn run semantic-release || true
+    - BABEL_ENV=node6 npm run build
+    - BABEL_ENV=es-modules npm run build -- -d dist/es-modules
+    - BABEL_ENV=node4 npm run build -- -d dist/node4
+    - npm run semantic-release || true
