@@ -26,13 +26,22 @@ function getReplacements (path) {
 function runSharp (image, options) {
   const sharp = Sharp(image.contents)
 
-  options.methods.forEach((method) => {
-    const args = [].concat(method.args)
-    sharp[method.name](...args)
-  })
+  return sharp.metadata()
+    .then((metadata) => {
+      options.methods.forEach((method) => {
+        let args
 
-  return sharp
-    .toBuffer()
+        if (typeof method.args === 'function') {
+          args = method.args(metadata)
+        } else {
+          args = [].concat(method.args)
+        }
+
+        sharp[method.name](...args)
+      })
+
+      return sharp.toBuffer()
+    })
 }
 
 export default function (userOptions) {

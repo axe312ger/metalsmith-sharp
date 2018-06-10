@@ -118,6 +118,26 @@ Check the [sharp API documentation](http://sharp.dimens.io/en/stable/api/) for a
 }
 ```
 
+#### args
+
+args can be specified as an array that will be passed directly into the method or as a callback function. 
+
+The callback function will be provided with the [image metadata](http://sharp.dimens.io/en/stable/api-input/#metadata) and should return an array.
+
+```js
+{
+  method: [
+    {
+      name: 'resize',
+      args: (metadata) => ([
+        Math.round(metadata.width * 0.5),
+        Math.round(metadata.height * 0.5)
+      ])
+    }
+  ]
+}
+```
+
 ### src
 
 Glob for matching source files. All [minimatch features](https://github.com/isaacs/minimatch#features) are supported.
