@@ -165,6 +165,48 @@ test.cb('test method with arguments', (t) => {
     })
 })
 
+test.cb('test method with callback for arguments', (t) => {
+  const { metalsmith } = t.context
+
+  metalsmith
+    .use(sharp({
+      namingPattern: '{dir}scaled{ext}',
+      methods: [
+        {
+          name: 'resize',
+          args: (metadata) => ([
+            Math.round(metadata.width * 0.5),
+            Math.round(metadata.height * 0.5)
+          ])
+        }
+      ]
+    }))
+    .build((err, files) => {
+      if (err) {
+        t.fail()
+        t.end()
+        throw err
+      }
+      const fileList = Object.keys(files)
+      const fileIndex = fileList.indexOf('scaled.jpg')
+      t.true(fileIndex !== -1)
+
+      const expected = join(EXPECTED_DIR, 'scaled.jpg')
+      const result = join(RESULT_DIR, 'scaled.jpg')
+
+      resemble(expected)
+        .compareTo(result)
+        .onComplete((data) => {
+          if (data.misMatchPercentage <= 1) {
+            t.pass()
+            return t.end()
+          }
+          t.fail('resulting image differs from expected one by ' + data.misMatchPercentage)
+          t.end()
+        })
+    })
+})
+
 test.cb('test with set of options', (t) => {
   const { metalsmith } = t.context
 
