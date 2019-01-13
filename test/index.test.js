@@ -229,7 +229,7 @@ test.cb('test with set of options', (t) => {
           { name: 'normalize' },
           {
             name: 'trim',
-            args: 30
+            args: 70
           }
         ]
       }
