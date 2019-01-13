@@ -41,8 +41,8 @@
     "babel-cli": "^6.24.0",
     "babel-core": "^6.24.0",
     "babel-eslint": "^10.0.1",
-    "babel-plugin-add-module-exports": "^0.3.1",
-    "babel-plugin-istanbul": "^4.1.1",
+    "babel-plugin-add-module-exports": "^1.0.0",
+    "babel-plugin-istanbul": "^5.1.0",
     "babel-preset-es2015-node4": "^2.1.0",
     "babel-preset-es2015-node6": "^0.4.0",
     "babel-preset-stage-0": "^6.22.0",
@@ -51,14 +51,14 @@
     "cross-env": "^5.1.1",
     "cz-conventional-changelog": "^2.0.0",
     "eslint": "^5.0.1",
-    "eslint-config-standard": "^10.2.1",
+    "eslint-config-standard": "^12.0.0",
     "eslint-plugin-babel": "^5.0.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^7.0.0",
+    "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.0",
     "eslint-plugin-standard": "^4.0.0",
     "node-resemble-js": "^0.2.0",
-    "nyc": "^12.0.1",
+    "nyc": "^13.1.0",
     "semantic-release": "^15.0.2"
   },
   "dependencies": {
@@ -66,7 +66,7 @@
     "lodash": "^4.17.4",
     "metalsmith": "^2.3.0",
     "minimatch": "^3.0.3",
-    "sharp": "^0.21.0"
+    "sharp": "^0.21.1"
   },
   "ava": {
     "require": [
