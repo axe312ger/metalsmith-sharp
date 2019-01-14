@@ -1,0 +1,34 @@
+version: 2.0
+jobs:
+  unit:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - run: node --version
+      - run: npm --version
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run: npm install
+      - run: npm test
+      - run: bash <(curl -s https://codecov.io/bash)
+  build:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - run: node --version
+      - run: npm --version
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run: npm install
+      - run: BABEL_ENV=node6 npm run build
+      - run: BABEL_ENV=es-modules npm run build -- -d dist/es-modules
+      - run: BABEL_ENV=node4 npm run build -- -d dist/node4
+      - run: npm run semantic-release || true
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - unit
+      - build
