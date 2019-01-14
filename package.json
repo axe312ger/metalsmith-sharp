@@ -14,7 +14,7 @@
     "preversion": "npm test",
     "version": "npm run build && git add -f dist",
     "postversion": "git push && git push --tags",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "url": "https://github.com/axe312ger/metalsmith-sharp.git",
