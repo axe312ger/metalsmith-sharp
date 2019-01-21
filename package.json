@@ -5,7 +5,11 @@
   "main": "dist/index.js",
   "module": "dist/es-modules/index.js",
   "scripts": {
-    "build": "cross-env NODE_ENV=production babel src -d dist",
+    "build": "cross-env NODE_ENV=production npm run build:all",
+    "build:all": "npm run build:node6 && npm run build:node4 && npm run build:es-modules",
+    "build:node6": "cross-env BABEL_ENV=node6 babel src -d dist",
+    "build:node4": "BABEL_ENV=node4 babel src -d dist/node4",
+    "build:es-modules": "BABEL_ENV=es-modules babel src -d dist/es-modules",
     "lint": "eslint src test",
     "test": "npm run lint && npm run test:coverage",
     "test:coverage": "cross-env NODE_ENV=test nyc --reporter=lcov --reporter=text --check-coverage --lines 100 npm run test:unit",
