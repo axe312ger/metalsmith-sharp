@@ -2,18 +2,18 @@
 
 > A fully flexible [sharp](http://sharp.dimens.io/) implementation for [Metalsmith](http://www.metalsmith.io/)
 
+[![](https://img.shields.io/npm/v/metalsmith-sharp.svg)](https://www.npmjs.com/package/metalsmith-sharp)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://axe312.mit-license.org)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 [![Build Status](https://img.shields.io/circleci/project/axe312ger/metalsmith-sharp.svg?maxAge=2592000)](https://circleci.com/gh/axe312ger/metalsmith-sharp)
 [![CodeCov Badge](https://img.shields.io/codecov/c/github/axe312ger/metalsmith-sharp.svg?maxAge=2592000)](https://codecov.io/gh/axe312ger/metalsmith-sharp)
-[![bitHound Code](https://www.bithound.io/github/axe312ger/metalsmith-sharp/badges/code.svg)](https://www.bithound.io/github/axe312ger/metalsmith-webpack-suite)
 [![semantic-release](https://img.shields.io/badge/%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## Install
 
 ```js
-npm install --save metalsmith-sharp
+npm install metalsmith-sharp
 ```
 
 ## Usage
@@ -21,66 +21,79 @@ npm install --save metalsmith-sharp
 Just use it as regular Metalsmith plugin. If your environment does not support the import syntax, see further below.
 
 ```js
-import Metalsmith from 'metalsmith'
-import sharp from 'metalsmith-sharp'
+const Metalsmith = require('metalsmith')
+const sharp = require('metalsmith-sharp')
 
-Metalsmith('/path/to/project')
-  .use(sharp({
-    methods: [
-      {
-        name: 'resize',
-        args: [ 200, 200 ]
-      },
-      { name: 'max' },
-      {
-        name: 'toFormat',
-        args: [ 'jpeg' ]
-      }
-    ]
-  }))
-  .build()
+Metalsmith(__dirname)
+  .use(
+    sharp({
+      methods: [
+        {
+          name: 'resize',
+          args: [200, 200]
+        },
+        {
+          name: 'resize',
+          args: { fit: 'inside' }
+        },
+        {
+          name: 'toFormat',
+          args: ['jpeg']
+        }
+      ]
+    })
+  )
+  .build((err) => {
+    if (err) return console.error(err)
+    console.log('Build successfully finished! It is 🥙 time!')
+  })
 ```
 
 You can also do multiple image manipulations in one call:
 
 ```js
-import Metalsmith from 'metalsmith'
-import sharp from 'metalsmith-sharp'
+const Metalsmith = require('metalsmith')
+const sharp = require('metalsmith-sharp')
 
-Metalsmith('/path/to/project')
-  .use(sharp([
-    {
-      namingPattern: '{dir}{name}-version-1{ext}',
-      methods: [
-        { name: 'normalize' },
-        { name: 'flop' },
-        {
-          name: 'trim',
-          args: 15
-        }
-      ]
-    },
-    {
-      namingPattern: '{dir}{name}-version-2{ext}',
-      methods: [
-        { name: 'normalize' },
-        {
-          name: 'trim',
-          args: 30
-        }
-      ]
-    }
-  ]))
-  .build()
+Metalsmith(__dirname)
+  .use(
+    sharp([
+      {
+        namingPattern: '{dir}{name}-version-1{ext}',
+        methods: [
+          { name: 'normalize' },
+          { name: 'flop' },
+          {
+            name: 'trim',
+            args: 15
+          }
+        ]
+      },
+      {
+        namingPattern: '{dir}{name}-version-2{ext}',
+        methods: [
+          { name: 'normalize' },
+          {
+            name: 'trim',
+            args: 30
+          }
+        ]
+      }
+    ])
+  )
+  .build((err) => {
+    if (err) return console.error(err)
+    console.log('Build successfully finished! It is 🥙 time!')
+  })
 ```
 
-### Node 6
+### Node 6 and above
 ```js
 const sharp = require('metalsmith-sharp')
 ```
 
 ### Node 4
-A version for the LTS version of node is also supplied. You can require it like this:
+A version for the (old) LTS version of node is also supplied. You can require it like this:
 
 ```js
 const sharp = require('metalsmith-sharp/dist/node4')
