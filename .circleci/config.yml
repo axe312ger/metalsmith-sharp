@@ -23,6 +23,8 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - run: npm install
       - run: npm run semantic-release
+      - store_artifacts:
+          path: ~/project/dist
 workflows:
   version: 2
   test-and-release:
