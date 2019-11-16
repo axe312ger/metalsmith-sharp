@@ -18,7 +18,7 @@ npm install metalsmith-sharp
 
 ## Usage
 
-Just use it as regular Metalsmith plugin. If your environment does not support the import syntax, see further below.
+Just use it as regular Metalsmith plugin. An ES-Modules version is exposed as well, ready to be used with `import sharp from 'metalsmith-sharp'`
 
 ```js
 const Metalsmith = require('metalsmith')
@@ -87,19 +87,6 @@ Metalsmith(__dirname)
   })
 ```
 
-### Node 6 and above
-```js
-const sharp = require('metalsmith-sharp')
-```
-
-### Node 4
-A version for the (old) LTS version of node is also supplied. You can require it like this:
-
-```js
-const sharp = require('metalsmith-sharp/dist/node4')
-```
-
-
 For further examples can be found in the test directory.
 
 ## Options
@@ -133,7 +120,7 @@ Check the [sharp API documentation](http://sharp.dimens.io/en/stable/api/) for a
 
 #### args
 
-args can be specified as an array that will be passed directly into the method or as a callback function. 
+args can be specified as an array that will be passed directly into the method or as a callback function.
 
 The callback function will be provided with the [image metadata](http://sharp.dimens.io/en/stable/api-input/#metadata) and should return an array.
 
