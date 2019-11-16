@@ -1,8 +1,8 @@
 module.exports = {
-    "parser": "babel-eslint",
-    "extends": "standard",
-    "plugins": [
-        "standard",
-        "babel"
-    ]
-};
+  env: {
+    'jest/globals': true,
+  },
+  parser: 'babel-eslint',
+  plugins: ['jest'],
+  extends: ['standard', 'prettier'],
+}
