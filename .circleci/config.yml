@@ -12,19 +12,6 @@ jobs:
       - run: yarn
       - run: npm run test
       - run: bash <(curl -s https://codecov.io/bash)
-  release:
-    docker:
-      - image: circleci/node:8
-    steps:
-      - run: node --version
-      - run: npm --version
-      - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-      - run: yarn
-      - run: npm run semantic-release
-      - store_artifacts:
-          path: ~/project/dist
 workflows:
   version: 2
   test-and-release:

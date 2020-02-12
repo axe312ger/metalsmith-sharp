@@ -16,8 +16,7 @@
     "format": "prettier --write './src/**/*.{js,jsx}'",
     "preversion": "npm test",
     "version": "npm run build && git add -f dist",
-    "postversion": "git push && git push --tags",
-    "semantic-release": "semantic-release"
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "url": "https://github.com/axe312ger/metalsmith-sharp.git",
@@ -40,36 +39,35 @@
     "CONTRIBUTING.md"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.7.0",
-    "@babel/core": "^7.7.2",
-    "@babel/preset-env": "^7.7.1",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
     "babel-eslint": "^10.0.3",
     "babel-plugin-add-module-exports": "^1.0.2",
     "condition-circle": "^2.0.0",
-    "cross-env": "^6.0.3",
-    "cz-conventional-changelog": "^3.0.2",
-    "eslint": "^6.6.0",
-    "eslint-config-prettier": "^6.5.0",
+    "cross-env": "^7.0.0",
+    "cz-conventional-changelog": "^3.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-babel": "^5.0.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jest": "^23.0.4",
-    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jest": "^23.7.0",
+    "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.0.0",
     "eslint-plugin-standard": "^4.0.0",
-    "jest": "^24.9.0",
+    "jest": "^25.1.0",
     "node-resemble-js": "^0.2.0",
-    "prettier": "^1.19.1",
-    "semantic-release": "^15.0.2"
+    "prettier": "^1.19.1"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.7.0",
-    "core-js": "3",
+    "@babel/polyfill": "^7.8.3",
+    "core-js": "3.6.4",
     "debug": "^4.1.0",
     "lodash": "^4.17.4",
     "metalsmith": "^2.3.0",
     "minimatch": "^3.0.3",
-    "sharp": "^0.23.2"
+    "sharp": "^0.24.0"
   },
   "release": {
     "verifyConditions": "condition-circle"

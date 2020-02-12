@@ -7,7 +7,6 @@
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 [![Build Status](https://img.shields.io/circleci/project/axe312ger/metalsmith-sharp.svg?maxAge=2592000)](https://circleci.com/gh/axe312ger/metalsmith-sharp)
 [![CodeCov Badge](https://img.shields.io/codecov/c/github/axe312ger/metalsmith-sharp.svg?maxAge=2592000)](https://codecov.io/gh/axe312ger/metalsmith-sharp)
-[![semantic-release](https://img.shields.io/badge/%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## Install
@@ -30,17 +29,17 @@ Metalsmith(__dirname)
       methods: [
         {
           name: 'resize',
-          args: [200, 200]
+          args: [200, 200],
         },
         {
           name: 'resize',
-          args: { fit: 'inside' }
+          args: { fit: 'inside' },
         },
         {
           name: 'toFormat',
-          args: ['jpeg']
-        }
-      ]
+          args: ['jpeg'],
+        },
+      ],
     })
   )
   .build((err) => {
@@ -65,9 +64,9 @@ Metalsmith(__dirname)
           { name: 'flop' },
           {
             name: 'trim',
-            args: 15
-          }
-        ]
+            args: 15,
+          },
+        ],
       },
       {
         namingPattern: '{dir}{name}-version-2{ext}',
@@ -75,10 +74,10 @@ Metalsmith(__dirname)
           { name: 'normalize' },
           {
             name: 'trim',
-            args: 30
-          }
-        ]
-      }
+            args: 30,
+          },
+        ],
+      },
     ])
   )
   .build((err) => {
@@ -92,6 +91,7 @@ For further examples can be found in the test directory.
 ## Options
 
 Default options:
+
 ```js
 {
   src: '**/*.jpg',
@@ -112,8 +112,8 @@ Check the [sharp API documentation](http://sharp.dimens.io/en/stable/api/) for a
   methods: [
     {
       name: 'anySharpMethod',
-      args: [ 400, 300 ]
-    }
+      args: [400, 300],
+    },
   ]
 }
 ```
@@ -129,11 +129,11 @@ The callback function will be provided with the [image metadata](http://sharp.di
   method: [
     {
       name: 'resize',
-      args: (metadata) => ([
+      args: (metadata) => [
         Math.round(metadata.width * 0.5),
-        Math.round(metadata.height * 0.5)
-      ])
-    }
+        Math.round(metadata.height * 0.5),
+      ],
+    },
   ]
 }
 ```
@@ -153,10 +153,11 @@ Glob for matching source files. All [minimatch features](https://github.com/isaa
 Renaming pattern for the resulting file. By default, the input file will be overwritten.
 
 Supported placeholders:
-* `{dir}`: Directory of file followed by slash
-* `{base}`: Full filename with extension
-* `{name}`: Filename without extension
-* `{ext}`: File extension with leading dot
+
+- `{dir}`: Directory of file followed by slash
+- `{base}`: Full filename with extension
+- `{name}`: Filename without extension
+- `{ext}`: File extension with leading dot
 
 ```js
 {
