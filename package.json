@@ -66,7 +66,7 @@
     "debug": "^4.1.0",
     "lodash": "^4.17.4",
     "metalsmith": "^2.3.0",
-    "minimatch": "^3.0.3",
+    "multimatch": "^2.1.0",
     "sharp": "^0.24.0"
   },
   "release": {
