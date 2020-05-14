@@ -119,6 +119,41 @@ test('test method without arguments', (done) => {
     })
 })
 
+test('test method without arguments - options attached to file', (done) => {
+  metalsmith
+    .use((files) => {
+      files['example.jpg'].sharp = {
+        namingPattern: '{dir}negated-per-file{ext}',
+        methods: [ { name: 'negate' } ]
+      }
+    })
+    .use(sharp())
+    .build(async (err, files) => {
+      if (err) {
+        done.fail()
+        done()
+        throw err
+      }
+      const fileList = Object.keys(files)
+      const fileIndex = fileList.indexOf('negated-per-file.jpg')
+      expect(fileIndex !== -1).toBe(true)
+
+      const expected = join(EXPECTED_DIR, 'negated.jpg')
+      const result = join(RESULT_DIR, 'negated-per-file.jpg')
+
+      resemble(expected)
+        .compareTo(result)
+        .onComplete((data) => {
+          if (data.misMatchPercentage <= 1) {
+            return done()
+          }
+          done.fail('resulting image differs from expected one by ' + data.misMatchPercentage)
+          done.end()
+        })
+    })
+})
+
+
 test('test method with arguments', (done) => {
   metalsmith
     .use(
@@ -268,6 +303,66 @@ test('test with set of options', (done) => {
             'resulting image version 1 differs from expected one by ' +
               data.misMatchPercentage
           )
+          done()
+        })
+    })
+})
+
+test.cb('test with set of options - options attached to file', (done) => {
+  metalsmith
+    .use((files) => {
+      files['example.jpg'].sharp = [
+        {
+          namingPattern: '{dir}{name}-per-file-version-1{ext}',
+          methods: [
+            { name: 'normalize' },
+            { name: 'flop' },
+            {
+              name: 'trim',
+              args: 15
+            }
+          ]
+        },
+        {
+          namingPattern: '{dir}{name}-per-file-version-2{ext}',
+          methods: [
+            { name: 'normalize' },
+            {
+              name: 'trim',
+              args: 30
+            }
+          ]
+        }
+      ]
+    })
+    .use(sharp())
+    .build((err, files) => {
+      if (err) {
+        done.fail()
+        done()
+        throw err
+      }
+      const fileList = Object.keys(files)
+      
+      expect(fileList.length).toBe(3)
+      expect(fileList.indexOf('example-per-file-version-1.jpg') !== -1).toBe(true)
+      expect(fileList.indexOf('example-per-file-version-2.jpg') !== -1).toBe(true)
+      
+      resemble(join(EXPECTED_DIR, 'example-version-1.jpg'))
+        .compareTo(join(RESULT_DIR, 'example-per-file-version-1.jpg'))
+        .onComplete((data) => {
+          if (data.misMatchPercentage <= 1) {
+            return resemble(join(EXPECTED_DIR, 'example-version-2.jpg'))
+              .compareTo(join(RESULT_DIR, 'example-per-file-version-2.jpg'))
+              .onComplete((data) => {
+                if (data.misMatchPercentage <= 1) {
+                  return done()
+                }
+                done.fail('resulting image version 2 differs from expected one by ' + data.misMatchPercentage)
+                done.end()
+              })
+          }
+          done.fail('resulting image version 1 differs from expected one by ' + data.misMatchPercentage)
           done()
         })
     })
