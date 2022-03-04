@@ -320,16 +320,15 @@ test('test unknown placeholders', (done) => {
 test('test catch of invalid image data error', (done) => {
   metalsmith
     .use((files) => {
-      files['example.jpg'].contents = Buffer.from('')
+      files['example.jpg'].contents = Buffer.from('this is not image data but some mocked text')
     })
     .use(sharp())
     .build((err, files) => {
       if (err) {
-        console.log(err);
         expect(
           err
             .toString()
-            .indexOf('Input Buffer is empty')
+            .indexOf('buffer contains unsupported image format')
         ).not.toBe(-1)
         return done()
       }
