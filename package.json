@@ -67,7 +67,7 @@
     "lodash": "^4.17.4",
     "metalsmith": "^2.3.0",
     "minimatch": "^3.0.3",
-    "sharp": "^0.24.0"
+    "sharp": "^0.30.2"
   },
   "release": {
     "verifyConditions": "condition-circle"
