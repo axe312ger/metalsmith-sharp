@@ -328,7 +328,7 @@ test('test catch of invalid image data error', (done) => {
         expect(
           err
             .toString()
-            .indexOf('buffer contains unsupported image format')
+            .indexOf('Input buffer contains unsupported image format')
         ).not.toBe(-1)
         return done()
       }
