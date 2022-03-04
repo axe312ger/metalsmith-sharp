@@ -1,6 +1,6 @@
 # metalsmith-sharp
 
-> A fully flexible [sharp](http://sharp.dimens.io/) implementation for [Metalsmith](http://www.metalsmith.io/)
+> A fully flexible [sharp](https://sharp.pixelplumbing.com/) implementation for [Metalsmith](http://www.metalsmith.io/)
 
 [![](https://img.shields.io/npm/v/metalsmith-sharp.svg)](https://www.npmjs.com/package/metalsmith-sharp)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://axe312.mit-license.org)
@@ -105,7 +105,7 @@ Default options:
 
 Array of method objects that will trigger the corresponding sharp method. They will be called with the passed arguments and in the given order.
 
-Check the [sharp API documentation](http://sharp.dimens.io/en/stable/api/) for a full list of supported methods.
+Check the [sharp API documentation](https://sharp.pixelplumbing.com/api-constructor) for a full list of supported methods.
 
 ```js
 {
