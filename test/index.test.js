@@ -325,10 +325,11 @@ test('test catch of invalid image data error', (done) => {
     .use(sharp())
     .build((err, files) => {
       if (err) {
+        console.log(err);
         expect(
           err
             .toString()
-            .indexOf('Input buffer contains unsupported image format')
+            .indexOf('Input Buffer is empty')
         ).not.toBe(-1)
         return done()
       }
